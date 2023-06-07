@@ -138,6 +138,7 @@ export default class SchemaRegistry {
         )
       }
     } catch (error) {
+      // @ts-ignore
       if (error.status !== 404) {
         throw error
       } else {
@@ -355,6 +356,7 @@ export default class SchemaRegistry {
 
       return id
     } catch (error) {
+      // @ts-ignore
       if (error.status && error.status === 404) {
         throw new ConfluentSchemaRegistryError(error)
       }
@@ -370,9 +372,9 @@ export default class SchemaRegistry {
     return id
   }
 
-  private getSchemaOriginRequest(registryId: number) {
+  private async getSchemaOriginRequest(registryId: number) {
     // ensure that cache-misses result in a single origin request
-    if (this.cacheMissRequests[registryId]) {
+    if (await this.cacheMissRequests[registryId]) {
       return this.cacheMissRequests[registryId]
     } else {
       const request = this.api.Schema.find({ id: registryId }).finally(() => {

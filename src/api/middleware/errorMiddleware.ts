@@ -30,6 +30,7 @@ const errorMiddleware: Middleware = ({ clientId }) => ({
     new Promise((resolve, reject) =>
       next()
         .then(resolve)
+        // @ts-ignore
         .catch((response: Response) => reject(new ResponseError(clientId, response))),
     ),
 })

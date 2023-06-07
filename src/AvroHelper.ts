@@ -43,6 +43,7 @@ export default class AvroHelper implements SchemaHelper {
 
     const avroSchema = avro.Type.forSchema(rawSchema, {
       ...opts,
+      // @ts-ignore
       typeHook: addReferencedSchemas(opts?.typeHook),
     })
 
